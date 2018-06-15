@@ -154,8 +154,9 @@ func (c *BuildCommandModel) cmdSlice() []string {
 		slice = append(slice, fmt.Sprintf("CODE_SIGN_IDENTITY=%s", c.forceCodeSignIdentity))
 	}
 
+	slice = append(slice, c.customBuildActions...)
+
 	if c.isArchive {
-		slice = append(slice, c.customBuildActions...)
 		slice = append(slice, "archive")
 
 		if c.archivePath != "" {
@@ -164,7 +165,7 @@ func (c *BuildCommandModel) cmdSlice() []string {
 	}
 
 	if c.sdk != "" {
-		slice = append(slice, fmt.Sprintf("-sdk %s", c.sdk))
+		slice = append(slice, "-sdk", c.sdk)
 	}
 
 	slice = append(slice, c.customOptions...)
